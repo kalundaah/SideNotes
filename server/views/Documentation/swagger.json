@@ -3,7 +3,7 @@
   "info": {
     "title": "Sidenotes Swagger",
     "description": "Swagger Documentation",
-    "version": "1.0.0"
+    "version": "3.0.0"
   },
   "paths": {
     "/": {

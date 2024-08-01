@@ -7,18 +7,19 @@ from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_migrate import Migrate
 from dotenv import load_dotenv
 import os
 from models.engine import DATABASE_URL
 
 try:
     load_dotenv(".env")
-    print("Loaded .env")
 except FileNotFoundError:
     print("No .env file found. Using default config")
 
+# Server extensions
 db = SQLAlchemy()
-
+migrate = Migrate()
 
 # Manual config of Flask app
 def create_app():
@@ -37,8 +38,11 @@ def create_app():
             'app_name': 'Sidenotes Swagger',
         }
     )
+
     # Initializing extentions
     db.init_app(app)
+    migrate.init_app(app, db)
+
 
     app.register_blueprint(blueprint=swaggerui_blueprint,
                            url_prefix=SWAGGER_URL)
