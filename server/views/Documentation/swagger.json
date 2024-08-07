@@ -29,7 +29,93 @@
         }
       }
     },
-    "/note/create":{
+    "/note/view_notes": {
+      "get": {
+        "summary": "Get all notes",
+        "responses": {
+          "200": {
+            "description": "All notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Notes": {
+                      "type": "string",
+                      "example": "The note 'The big day' with 'This is a great way to live.' has been created"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/view_note/{id_nos}": {
+      "post": {
+        "summary": "View a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A specific note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "123"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "My Note Title"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "This is the content of the note."
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-07T12:34:56Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/create": {
       "post": {
         "summary": "Create a new note",
         "requestBody": {
@@ -48,7 +134,9 @@
                     "example": "This is a great way to live."
                   }
                 },
-                "required": ["title"]
+                "required": [
+                  "title"
+                ]
               }
             }
           }
@@ -76,7 +164,7 @@
     "/note/get_note": {},
     "/note/update_note": {},
     "/note/delete_note": {},
-    "/task/create_task":{
+    "/task/create_task": {
       "post": {
         "summary": "Create a new task",
         "requestBody": {
@@ -95,7 +183,9 @@
                     "example": "The work I was to do is ABC"
                   }
                 },
-                "required": ["title"]
+                "required": [
+                  "title"
+                ]
               }
             }
           }
