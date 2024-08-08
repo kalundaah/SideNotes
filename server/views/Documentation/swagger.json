@@ -8,6 +8,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "General"
+        ],
         "summary": "Get the Home page",
         "responses": {
           "200": {
@@ -31,6 +34,9 @@
     },
     "/note/view_notes": {
       "get": {
+        "tags": [
+          "Note Management"
+        ],
         "summary": "Get all notes",
         "responses": {
           "200": {
@@ -54,6 +60,9 @@
     },
     "/note/view_note/{id_nos}": {
       "post": {
+        "tags": [
+          "Note Management"
+        ],
         "summary": "View a specific note by ID",
         "parameters": [
           {
@@ -117,6 +126,9 @@
     },
     "/note/create": {
       "post": {
+        "tags": [
+          "Note Management"
+        ],
         "summary": "Create a new note",
         "requestBody": {
           "required": true,
@@ -163,9 +175,64 @@
     },
     "/note/get_note": {},
     "/note/update_note": {},
-    "/note/delete_note": {},
+    "/note/delete_note/{id_nos} ": {
+      "delete": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "Delete a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A specific note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The note 'The big day' has been deleted."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/task/create_task": {
       "post": {
+        "tags": [
+          "Task Management"
+        ],
         "summary": "Create a new task",
         "requestBody": {
           "required": true,
