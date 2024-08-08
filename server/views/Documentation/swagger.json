@@ -174,7 +174,80 @@
       }
     },
     "/note/get_note": {},
-    "/note/update_note": {},
+    "/note/update_note/{id_nos  }": {
+      "put": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "Delete a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Remember to do work"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "The work I was to do is ABC"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The note The big day has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The note 'The big day' has been updated."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
     "/note/delete_note/{id_nos} ": {
       "delete": {
         "tags": [

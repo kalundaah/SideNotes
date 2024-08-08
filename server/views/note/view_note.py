@@ -31,7 +31,7 @@ def view_notes():
 
 @note.route('/view_note/<id_nos>', methods=['POST'])
 def view_note(id_nos):
-    note = Note.query.get(int(id_nos))
+    note = db.get_or_404(Note, id_nos)
     if note is None:
         return jsonify({"Empty": "No note found"}), 404
     else:
