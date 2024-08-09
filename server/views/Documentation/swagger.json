@@ -8,6 +8,9 @@
   "paths": {
     "/": {
       "get": {
+        "tags": [
+          "General"
+        ],
         "summary": "Get the Home page",
         "responses": {
           "200": {
@@ -29,8 +32,103 @@
         }
       }
     },
-    "/note/create":{
+    "/note/view_notes": {
+      "get": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "Get all notes",
+        "responses": {
+          "200": {
+            "description": "All notes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "Notes": {
+                      "type": "string",
+                      "example": "The note 'The big day' with 'This is a great way to live.' has been created"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/view_note/{id_nos}": {
       "post": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "View a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A specific note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "123"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "My Note Title"
+                    },
+                    "content": {
+                      "type": "string",
+                      "example": "This is the content of the note."
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2024-08-07T12:34:56Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/note/create": {
+      "post": {
+        "tags": [
+          "Note Management"
+        ],
         "summary": "Create a new note",
         "requestBody": {
           "required": true,
@@ -48,7 +146,9 @@
                     "example": "This is a great way to live."
                   }
                 },
-                "required": ["title"]
+                "required": [
+                  "title"
+                ]
               }
             }
           }
@@ -74,10 +174,138 @@
       }
     },
     "/note/get_note": {},
-    "/note/update_note": {},
-    "/note/delete_note": {},
-    "/task/create_task":{
+    "/note/update_note/{id_nos  }": {
+      "put": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "Delete a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Remember to do work"
+                  },
+                  "content": {
+                    "type": "string",
+                    "example": "The work I was to do is ABC"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The note The big day has been updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The note 'The big day' has been updated."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+    },
+    "/note/delete_note/{id_nos} ": {
+      "delete": {
+        "tags": [
+          "Note Management"
+        ],
+        "summary": "Delete a specific note by ID",
+        "parameters": [
+          {
+            "name": "id_nos",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the note to view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A specific note",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The note 'The big day' has been deleted."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Note not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Note not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/task/create_task": {
       "post": {
+        "tags": [
+          "Task Management"
+        ],
         "summary": "Create a new task",
         "requestBody": {
           "required": true,
@@ -95,7 +323,9 @@
                     "example": "The work I was to do is ABC"
                   }
                 },
-                "required": ["title"]
+                "required": [
+                  "title"
+                ]
               }
             }
           }
