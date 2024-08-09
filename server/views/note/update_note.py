@@ -1,6 +1,8 @@
 """
 Delete note
 """
+from datetime import datetime
+
 # dependencies
 from flask import request
 # blueprint
@@ -18,8 +20,10 @@ def update_note(id_nos):
     if data is None:
         return f"Nothing to update", 200
     else:
-        upd_note.title = data['title']
-        upd_note.content = data['content']
+        for key, value in data.items():
+            setattr(upd_note, key, value)
+
+        upd_note.updated_at = datetime.utcnow()
     try:
         db.session.commit()
     except Exception as e:

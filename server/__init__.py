@@ -21,6 +21,7 @@ except FileNotFoundError:
 db = SQLAlchemy()
 migrate = Migrate()
 
+
 # Manual config of Flask app
 def create_app():
     # init app
@@ -43,13 +44,13 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-
     app.register_blueprint(blueprint=swaggerui_blueprint,
                            url_prefix=SWAGGER_URL)
 
     @app.route('/swagger.json')
     def swagger():
-        with open('server/views/Documentation/swagger.json', 'r') as f:
+        path = os.path.dirname(os.path.abspath(__file__))   + "/views/Documentation/swagger.json"
+        with open(path, 'r') as f:
             return jsonify(json.load(f))
 
     # register urls
