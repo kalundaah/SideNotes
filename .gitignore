@@ -163,3 +163,5 @@ cython_debug/
 
 # Any local db files
 *.sqlite
+
+migrations/
